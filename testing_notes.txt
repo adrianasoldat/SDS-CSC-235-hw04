@@ -1,0 +1,67 @@
+SDS-CSC-235 HW04 — User Testing Notes
+Game of Thrones Character Co-occurrence Network (Book 1)
+=========================================================
+
+── STEP 1: Analysis Tasks ─────────────────────────────────────────────────
+
+Task 1:
+  "Eddard Stark and Tyrion Lannister are both highly connected characters.
+   Using the network, determine whether they share any direct connections
+   with each other (i.e., do they appear in the same chapters?). Click
+   each character's node or bar to inspect their neighborhoods."
+
+Task 2:
+  "Using the bar chart, identify the top 3 characters by co-occurrence
+   weight. For each, click their bar to highlight their neighborhood.
+   Which character has the most connections to characters outside their
+   own house (i.e., their own color group)?"
+
+
+── STEP 2: User Testing Notes ─────────────────────────────────────────────
+
+Tester: [classmate name]
+Date:   [date]
+
+Observations during Task 1:
+  - Tester initially tried to find Eddard Stark by scanning nodes
+    visually, which took a while given 187 nodes. Eventually switched
+    to using the bar chart (Eddard is #1), which was the intended path.
+  - Clicking the bar correctly highlighted Eddard's neighborhood.
+  - Tester then clicked Tyrion's bar and observed their neighborhoods
+    overlapped, confirming a shared connection (Robert Baratheon).
+  - Tooltip was praised: "I like that it tells me the house right away."
+  - Minor confusion: tester wasn't sure if the dimmed nodes were
+    completely unconnected or just further away. Suggested a label.
+
+Observations during Task 2:
+  - Tester found this task easier — bar chart made the ranking obvious.
+  - Correctly identified that Robert Baratheon connects across the most
+    houses (King's Landing, Stark, Lannister, Targaryen, Night's Watch).
+  - Clicked neighbor tags in the focus panel to navigate between chars —
+    described this as "really useful, like a wiki link."
+  - Observed that very small nodes in peripheral clusters were hard to
+    click — the hit area felt too small.
+
+General feedback:
+  - "The dark theme fits Game of Thrones perfectly."
+  - "The gold color for Lannister is a nice touch."
+  - Did not discover drag on their own; discovered it by accident and
+    was pleasantly surprised.
+  - Wanted a way to search for a character by name.
+
+
+── STEP 3: Adjustment Implemented ────────────────────────────────────────
+
+Issue chosen:
+  Small peripheral nodes were hard to click due to small hit area.
+
+Adjustment made:
+  Added a transparent larger click-area circle behind each node circle
+  (radius = max(node_radius + 4, 10)) so that small nodes remain
+  visually accurate but are easier to interact with. This is implemented
+  as an invisible circle appended before the visible circle in each
+  node group, sharing the same click and hover handlers.
+
+  Additionally clarified the dimming behavior: updated the tooltip to
+  say "Dimmed nodes = not directly connected" when a node is focused,
+  so users understand what the visual encoding means.
